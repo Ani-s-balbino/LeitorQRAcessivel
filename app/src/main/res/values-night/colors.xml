@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Mesma paleta no modo escuro (contrastes conferidos: texto >= 8,9:1, componentes >= 6,2:1). -->
+<resources>
+    <color name="fundo">#0B1424</color>
+    <color name="superficie">#14213A</color>
+    <color name="azul_principal">#9CC3FF</color>
+    <color name="sobre_azul_principal">#04224D</color>
+    <color name="azul_container">#1F3A66</color>
+    <color name="sobre_azul_container">#D6E4FF</color>
+    <color name="texto">#E8EEF9</color>
+    <color name="texto_secundario">#B4C2D9</color>
+    <color name="contorno">#8FA3C2</color>
+    <color name="erro">#F2B8B5</color>
+    <color name="sobre_erro">#601410</color>
+</resources>

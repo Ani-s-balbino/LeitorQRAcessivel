@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Paleta do Leitor QR Acessível (tema claro).
+  Todas as combinações de texto/fundo abaixo foram conferidas com a fórmula de contraste da WCAG 2.x:
+  texto comum >= 4,5:1 (AA) e a maioria >= 7:1 (AAA); bordas e componentes >= 3:1.
+  Para trocar o azul da empresa, mexa só em "azul_principal" e confira o contraste com o branco (mínimo 4,5:1).
+-->
+<resources>
+    <color name="fundo">#F3F7FF</color>
+    <color name="superficie">#FFFFFF</color>
+    <color name="azul_principal">#0A4AA6</color>
+    <color name="sobre_azul_principal">#FFFFFF</color>
+    <color name="azul_container">#DCE8FF</color>
+    <color name="sobre_azul_container">#0B2F66</color>
+    <color name="texto">#0D1B2E</color>
+    <color name="texto_secundario">#41536B</color>
+    <color name="contorno">#5B6E8A</color>
+    <color name="erro">#B3261E</color>
+    <color name="sobre_erro">#FFFFFF</color>
+</resources>

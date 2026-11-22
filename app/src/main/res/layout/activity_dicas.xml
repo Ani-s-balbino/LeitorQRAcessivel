@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fundo"
+    android:fillViewport="true"
+    android:focusable="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="24dp">
+
+        <!-- Voltar fica no início da tela, para sair rápido -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/botaoVoltarDicas"
+            style="@style/Botao.Contorno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/botao_voltar"
+            app:icon="@drawable/ic_voltar" />
+
+        <TextView android:focusable="true"
+            android:id="@+id/tituloDicas"
+            style="@style/Texto.Titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/titulo_dicas" />
+
+        <TextView android:focusable="true"
+            style="@style/Texto.Apoio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/dicas_intro" />
+
+        <!-- Cada seção é um cartão: título (cabeçalho) e depois cada dica com foco próprio -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Cartao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView android:focusable="true"
+                    android:id="@+id/cabecalhoPapel"
+                    style="@style/Texto.Titulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dicas_papel_titulo"
+                    android:textSize="20sp" />
+
+                <TextView android:focusable="true"
+                    style="@style/Texto.Corpo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/dicas_papel_1" />
+
+                <TextView android:focusable="true"
+                    style="@style/Texto.Corpo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/dicas_papel_2" />
+
+                <TextView android:focusable="true"
+                    style="@style/Texto.Corpo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/dicas_papel_3" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Cartao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView android:focusable="true"
+                    android:id="@+id/cabecalhoComputador"
+                    style="@style/Texto.Titulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dicas_tela_titulo"
+                    android:textSize="20sp" />
+
+                <TextView android:focusable="true"
+                    style="@style/Texto.Corpo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/dicas_tela_1" />
+
+                <TextView android:focusable="true"
+                    style="@style/Texto.Corpo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/dicas_tela_2" />
+
+                <TextView android:focusable="true"
+                    style="@style/Texto.Corpo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/dicas_tela_3" />
+
+                <TextView android:focusable="true"
+                    style="@style/Texto.Corpo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/dicas_tela_4" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Cartao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView android:focusable="true"
+                    android:id="@+id/cabecalhoDistancia"
+                    style="@style/Texto.Titulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dicas_distancia_titulo"
+                    android:textSize="20sp" />
+
+                <TextView android:focusable="true"
+                    style="@style/Texto.Corpo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/dicas_distancia_1" />
+
+                <TextView android:focusable="true"
+                    style="@style/Texto.Corpo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/dicas_distancia_2" />
+
+                <TextView android:focusable="true"
+                    style="@style/Texto.Corpo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/dicas_distancia_3" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Cartao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView android:focusable="true"
+                    android:id="@+id/cabecalhoLuz"
+                    style="@style/Texto.Titulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dicas_luz_titulo"
+                    android:textSize="20sp" />
+
+                <TextView android:focusable="true"
+                    style="@style/Texto.Corpo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/dicas_luz_1" />
+
+                <TextView android:focusable="true"
+                    style="@style/Texto.Corpo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/dicas_luz_2" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Cartao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView android:focusable="true"
+                    android:id="@+id/cabecalhoNaoLeu"
+                    style="@style/Texto.Titulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dicas_nao_leu_titulo"
+                    android:textSize="20sp" />
+
+                <TextView android:focusable="true"
+                    style="@style/Texto.Corpo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/dicas_nao_leu_1" />
+
+                <TextView android:focusable="true"
+                    style="@style/Texto.Corpo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/dicas_nao_leu_2" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView android:focusable="true"
+            style="@style/Texto.Apoio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dicas_fontes" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

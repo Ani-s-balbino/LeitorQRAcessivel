@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Leitor QR Acessível</string>
+    <string name="status_inicial">Aponte a câmera traseira para a tela e mova o celular devagar.</string>
+
+    <!-- Busca: parar, retomar, erros -->
+    <string name="botao_parar_busca">Parar busca</string>
+    <string name="botao_retomar_busca">Retomar busca</string>
+    <string name="status_busca_parada">Busca parada. Toque em Retomar busca quando quiser continuar.</string>
+    <string name="status_busca_retomada">Busca retomada. Procurando QR code.</string>
+    <string name="erro_qr_quebrado">Achei um QR code, mas não consegui ler. Ele pode estar borrado, cortado ou danificado. Tente aproximar ou afastar o celular e deixe-o parado por um instante. Se continuar, tente outro QR code.</string>
+    <string name="botao_dicas">Dicas para captura de QR code</string>
+
+    <!-- Botões -->
+    <string name="botao_lanterna_desligada">Lanterna: desligada</string>
+    <string name="botao_lanterna_ligada">Lanterna: ligada</string>
+    <string name="botao_ler_novamente">Ouvir novamente</string>
+    <string name="botao_copiar">Copiar conteúdo</string>
+    <string name="botao_compartilhar">Compartilhar QR code</string>
+    <string name="botao_escanear_outro">Escanear outro QR code</string>
+    <string name="acao_abrir_qr">Abrir QR code</string>
+    <string name="acao_abrir_qr_tipo">Abrir QR code: %1$s</string>
+
+    <!-- Permissão da câmera -->
+    <string name="permissao_titulo">Precisamos da câmera</string>
+    <string name="permissao_explicacao">O aplicativo usa a câmera traseira só para procurar o QR code na tela e guiar você por voz. Nenhuma foto ou vídeo é gravado ou enviado.</string>
+    <string name="permissao_botao_permitir">Permitir uso da câmera</string>
+    <string name="permissao_botao_configuracoes">Abrir configurações do aplicativo</string>
+    <!-- Aviso curto no cartão de status: não repete a explicação dos parágrafos acima -->
+    <string name="permissao_status_pedir">Permissão da câmera necessária para começar.</string>
+    <string name="permissao_paragrafo_bloqueado">A câmera está bloqueada para este aplicativo. Toque em Abrir configurações do aplicativo, depois em Permissões, Câmera, e escolha Permitir apenas durante o uso do app. Depois volte para cá.</string>
+    <string name="permissao_status_bloqueada">Câmera bloqueada. Toque em Abrir configurações do aplicativo para liberar.</string>
+
+    <!-- Compartilhar / abrir -->
+    <string name="titulo_compartilhar">Compartilhar QR code</string>
+    <string name="titulo_dicas">Dicas para captura de QR code</string>
+    <string name="titulo_abrir_com">Abrir com</string>
+
+    <!-- Configurações -->
+    <string name="botao_configuracoes">Configurações do aplicativo</string>
+    <string name="titulo_configuracoes">Configurações do aplicativo</string>
+    <string name="botao_voltar_descricao">Voltar para a tela anterior</string>
+    <string name="config_talkback_atencao">Atenção: o TalkBack está ligado agora. Se houver sobreposição de falas entre a voz do aplicativo e o TalkBack, desligue o leitor enquanto o aplicativo estiver buscando um QR code.</string>
+    <string name="permissao_paragrafo_1">Precisamos da câmera para achar o QR code. Toque no botão Permitir uso da câmera e, na janela do sistema, escolha Permitir apenas durante o uso do app.</string>
+    <string name="permissao_paragrafo_2">O aplicativo usa a câmera traseira só para procurar o QR code na tela e guiar você por voz e bips. Nenhuma foto ou vídeo é gravado ou enviado.</string>
+    <string name="config_camera_titulo">Permissão da câmera</string>
+    <string name="config_feedback_dica">Escolha um. Vibração, bips ou os dois.</string>
+    <string name="config_secao_feedback">Como o app avisa durante a busca</string>
+    <string name="config_feedback_vibracao">Vibração</string>
+    <string name="config_feedback_bips">Bips</string>
+    <string name="config_feedback_ambos">Vibração e bips</string>
+    <string name="config_secao_voz">Voz do aplicativo</string>
+    <string name="config_voz_titulo">Usar a voz do aplicativo</string>
+    <string name="config_voz_explicacao">Deixe esta opção desligada se o TalkBack estiver ligado. Com o TalkBack e a voz do app juntos, as duas falam ao mesmo tempo e se atrapalham. Para usar a voz do app, desligue o TalkBack antes de começar.</string>
+    <string name="config_voz_depois_leitura">Depois de ler o QR code, se quiser ouvir a tela com o leitor de tela, ligue o TalkBack manualmente nas configurações de acessibilidade do celular. O aplicativo não liga o leitor sozinho.</string>
+    <string name="config_talkback_ligado">Atenção: o TalkBack está ligado agora. Desligue-o para usar a voz do aplicativo sem sobreposição.</string>
+    <string name="config_talkback_desligado">O TalkBack está desligado.</string>
+    <string name="config_secao_permissoes">Permissões</string>
+    <string name="config_permissoes_explicacao">Se você negou alguma permissão e ela não está funcionando, toque no botão para liberar de novo.</string>
+    <string name="config_camera_permitida">Câmera: permitida</string>
+    <string name="config_camera_negada">Câmera: não permitida</string>
+    <string name="config_microfone_permitido">Microfone: permitido</string>
+    <string name="config_microfone_negado">Microfone: não permitido</string>
+    <string name="config_botao_permitir_camera">Permitir câmera</string>
+    <string name="config_botao_permitir_microfone">Permitir microfone</string>
+    <string name="config_botao_configuracoes_permissao">Abrir configurações do aplicativo para liberar</string>
+    <string name="config_secao_ajuda">Privacidade e contato</string>
+    <string name="config_botao_politica">Política de privacidade e termos de uso</string>
+    <string name="config_botao_feedback">Enviar feedback por e-mail</string>
+    <string name="config_feedback_assunto">Feedback - Leitor QR Acessível</string>
+    <string name="config_sem_app_email">Não encontrei aplicativo de e-mail neste celular.</string>
+
+    <string name="botao_voltar">Voltar</string>
+
+    <!-- Dicas para captura de QR code -->
+    <string name="dicas_intro">Estas dicas ajudam a encontrar e ler o QR code. Em cada caso, o app avisa por voz e por bips se o celular precisa ir para um lado, para cima, para baixo, para perto ou para longe.</string>
+    <string name="dicas_papel_titulo">Em papel ou documento</string>
+    <string name="dicas_papel_1">Use o papel em modo paisagem. Modo paisagem é quando a folha fica deitada, mais larga do que alta, como uma tela de cinema. Se o QR code estiver numa folha em pé, gire a folha.</string>
+    <string name="dicas_papel_2">Deixe a folha lisa, sem dobras, e evite sombras sobre o QR code. Um papel bem esticado sobre a mesa facilita.</string>
+    <string name="dicas_papel_3">Segure o celular a cerca de 30 centímetros da folha. Se não achar o QR code, mova o celular devagar para os lados e depois para cima e para baixo.</string>
+    <string name="dicas_tela_titulo">Na tela de computador ou de outro celular</string>
+    <string name="dicas_tela_1">Posicione o celular na altura da linha da barra de espaço do teclado, apontado para a tela, para ficar na mesma altura do QR code.</string>
+    <string name="dicas_tela_2">Afaste o celular cerca de 30 centímetros da tela. Não precisa encostar.</string>
+    <string name="dicas_tela_3">Não mude o zoom da tela enquanto escaneia. Mudar o zoom pode deixar o QR code ilegível.</string>
+    <string name="dicas_tela_4">Não precisa deixar o celular paralelo à tela. A leitura funciona com uma leve inclinação, e o app avisa se estiver torto demais.</string>
+    <string name="dicas_distancia_titulo">Distância e movimento</string>
+    <string name="dicas_distancia_1">A distância ideal é de cerca de 30 centímetros, uma distância de braço esticado. O app avisa se estiver perto ou longe demais.</string>
+    <string name="dicas_distancia_2">Mova o celular devagar, em varredura: primeiro para os lados, depois para cima e para baixo. Movimentos rápidos atrapalham a leitura.</string>
+    <string name="dicas_distancia_3">Se o QR code estiver muito longe, aproxime o celular aos poucos. Quando estiver bem enquadrado, o app pede para segurar parado.</string>
+    <string name="dicas_luz_titulo">Luz e reflexo</string>
+    <string name="dicas_luz_1">Evite luz direta sobre a tela ou sobre o papel, porque ela causa reflexo. Um ambiente com luz suave funciona melhor.</string>
+    <string name="dicas_luz_2">Aumente o brilho da tela do computador ou do celular que mostra o QR code. Use a lanterna do app só se o ambiente estiver escuro, porque ela pode causar reflexo em papel brilhante.</string>
+    <string name="dicas_nao_leu_titulo">Se o QR code não ler</string>
+    <string name="dicas_nao_leu_1">O app avisa quando acha um QR code que não consegue ler. Ele pode estar borrado, cortado ou danificado. Tente aproximar ou afastar um pouco e deixe o celular parado por um instante.</string>
+    <string name="dicas_nao_leu_2">Se continuar sem ler, peça para gerar outro QR code ou tente com outro celular.</string>
+    <string name="dicas_fontes">Dicas baseadas em guias de acessibilidade, como o da Mississippi State University e o do Axess Lab, e em relatos de pessoas que usam leitores de tela. Se algo não funcionar no seu aparelho, use o botão de feedback em Configurações.</string>
+
+    <!-- Política de privacidade e termos de uso -->
+    <string name="titulo_politica">Privacidade e termos</string>
+    <string name="politica_atualizacao">Última atualização: 20/11/2026</string>
+    <string name="politica_privacidade_titulo">Política de privacidade</string>
+    <string name="politica_termos_titulo">Termos de uso</string>
+
+    <!-- Política: cada parágrafo e item tem foco próprio no leitor de tela -->
+    <string name="politica_priv_1">O Leitor QR Acessível não coleta, não guarda em servidores e não envia dados pessoais. Não pedimos cadastro, nome, e-mail nem senha.</string>
+    <string name="politica_priv_2">Câmera: a câmera traseira é usada só para achar o QR code na tela, em tempo real, e guiar você por voz e bips. Nenhuma foto ou vídeo é gravado ou enviado.</string>
+    <string name="politica_priv_3">Leitura do QR code: é feita no próprio aparelho, pelo leitor de QR code do Google (ML Kit), que funciona sem internet.</string>
+    <string name="politica_priv_4">Configurações: suas escolhas, como vibração, bips e voz do aplicativo, ficam salvas somente neste aparelho.</string>
+    <string name="politica_priv_5">Conteúdo do QR code: o app mostra, copia e compartilha o conteúdo somente quando você pedir. Ao abrir um link ou atalho, ele é aberto no aplicativo que você escolher, e nesse aplicativo valem as regras dele.</string>
+    <string name="politica_priv_6">Feedback: o e-mail só é enviado se você tocar no botão de feedback, e ele é aberto no seu aplicativo de e-mail.</string>
+    <string name="politica_priv_7">Seus dados: para apagar o que ficou salvo, desinstale o aplicativo ou limpe os dados dele nas configurações do celular.</string>
+    <string name="politica_termos_1">1. Finalidade: o aplicativo ajuda pessoas com deficiência visual a encontrar e ler QR codes. Ele não substitui a atenção à segurança.</string>
+    <string name="politica_termos_2">2. Segurança: confira antes de abrir links, pagar algo, conectar em Wi-Fi ou salvar contatos. O app bloqueia alguns endereços perigosos, mas não garante que o conteúdo de um QR code seja seguro.</string>
+    <string name="politica_termos_3">3. Responsabilidade: o aplicativo é oferecido como está. Não nos responsabilizamos por danos causados pelo conteúdo de QR codes, por sites ou aplicativos de terceiros, nem por falhas de leitura.</string>
+    <string name="politica_termos_4">4. Sem vínculo: o aplicativo não tem ligação com as empresas ou serviços cujos QR codes ele lê.</string>
+    <string name="politica_termos_5">5. Alterações: estes termos podem ser atualizados. Vale sempre a versão que está no aplicativo.</string>
+    <string name="politica_termos_6">6. Contato: dúvidas e sugestões pelo botão Enviar feedback por e-mail, em Configurações.</string>
+</resources>

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ordem de foco: título, pedido de câmera, aviso, resultado, lanterna, parar/retomar, dicas e configurações. -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fundo"
+    android:fillViewport="true"
+    android:focusable="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="16dp">
+
+        <!-- Título da tela (cabeçalho para o leitor de tela) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:focusable="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!-- Ícone ilustrativo: não é lido pelo leitor de tela -->
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:background="@drawable/fundo_logo"
+                android:contentDescription="@null"
+                android:importantForAccessibility="no"
+                android:padding="10dp"
+                android:src="@drawable/ic_logo" />
+
+            <TextView
+                android:id="@+id/textoTitulo"
+                style="@style/Texto.Titulo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:text="@string/app_name" />
+        </LinearLayout>
+
+        <!-- Pedido de permissão da câmera: dois parágrafos, cada um com foco próprio, e depois o botão -->
+        <LinearLayout
+            android:id="@+id/cartaoPermissao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:focusable="false"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/textoPermissaoParagrafo1"
+                style="@style/Texto.Corpo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:focusable="true"
+                android:text="@string/permissao_paragrafo_1" />
+
+            <TextView
+                android:id="@+id/textoPermissaoParagrafo2"
+                style="@style/Texto.Corpo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:focusable="true"
+                android:text="@string/permissao_paragrafo_2" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/botaoPermissao"
+                style="@style/Botao.Principal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/permissao_botao_permitir"
+                app:icon="@drawable/ic_camera" />
+        </LinearLayout>
+
+
+
+        <!-- Aviso de orientação: é aqui que o leitor de tela lê o que o app diz -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cartaoStatus"
+            style="@style/Cartao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:cardBackgroundColor="@color/azul_container"
+            app:strokeWidth="0dp">
+
+            <TextView
+                android:id="@+id/textoStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:lineSpacingExtra="4dp"
+                android:padding="18dp"
+                android:text="@string/status_inicial"
+                android:textColor="@color/sobre_azul_container"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Resultado da leitura: tocar aqui também abre o QR code -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cartaoResultado"
+            style="@style/Cartao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:visibility="gone"
+            app:strokeColor="@color/azul_principal"
+            app:strokeWidth="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <TextView
+                    android:id="@+id/textoTipoResultado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:textColor="@color/azul_principal"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textoResultado"
+                    style="@style/Texto.Corpo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:ellipsize="end"
+                    android:focusable="true"
+                    android:maxLines="8" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/botaoAbrirQr"
+            style="@style/Botao.Principal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:text="@string/acao_abrir_qr"
+            android:visibility="gone"
+            app:icon="@drawable/ic_abrir" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/botaoCompartilhar"
+            style="@style/Botao.Secundario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:text="@string/botao_compartilhar"
+            android:visibility="gone"
+            app:icon="@drawable/ic_compartilhar" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/botaoCopiar"
+            style="@style/Botao.Contorno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:text="@string/botao_copiar"
+            android:visibility="gone"
+            app:icon="@drawable/ic_copiar" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/botaoLerNovamente"
+            style="@style/Botao.Contorno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:text="@string/botao_ler_novamente"
+            android:visibility="gone"
+            app:icon="@drawable/ic_ouvir" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/botaoEscanearOutro"
+            style="@style/Botao.Secundario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:text="@string/botao_escanear_outro"
+            android:visibility="gone"
+            app:icon="@drawable/ic_recomecar" />
+
+        <!-- Controles da busca: lanterna, depois parar/retomar -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/botaoLanterna"
+            style="@style/Botao.Contorno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:text="@string/botao_lanterna_desligada"
+            android:visibility="gone"
+            app:icon="@drawable/ic_lanterna" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/botaoPausarBusca"
+            style="@style/Botao.Secundario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:text="@string/botao_parar_busca"
+            android:visibility="gone"
+            app:icon="@drawable/ic_pausar" />
+
+
+        <!-- Ações da tela inicial: dicas e configurações do aplicativo -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/botaoDicas"
+            style="@style/Botao.Secundario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:text="@string/botao_dicas"
+            app:icon="@drawable/ic_dica" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/botaoConfiguracoes"
+            style="@style/Botao.Secundario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/botao_configuracoes"
+            app:icon="@drawable/ic_configuracoes" />
+
+        <!-- Prévia da câmera: fica por último na ordem do leitor de tela, e ele não lê a imagem -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cartaoCamera"
+            style="@style/Cartao"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:layout_marginBottom="12dp"
+            android:importantForAccessibility="no"
+            android:minHeight="240dp"
+            android:visibility="gone"
+            app:cardCornerRadius="28dp"
+            app:strokeColor="@color/azul_principal"
+            app:strokeWidth="3dp">
+
+            <androidx.camera.view.PreviewView
+                android:id="@+id/previewView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no"
+                app:implementationMode="compatible" />
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
