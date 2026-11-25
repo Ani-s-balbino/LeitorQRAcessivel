@@ -4,14 +4,14 @@
 #   powershell -ExecutionPolicy Bypass -File .\scripts\instalar-android.ps1
 #
 # Opções:
-#   -Versao v1.1          versão da release no GitHub (padrão: v1.1)
+#   -Versao v1.1          versão da release no GitHub (padrão: v1.2)
 #   -ApkLocal "caminho"   usa um APK que você já baixou, sem baixar de novo
 #   -SemInstalar          só baixa e verifica o celular, sem instalar (para teste)
 #
 # O script escreve cada passo em frases simples, sem enfeites, para leitores de tela.
 
 param(
-    [string]$Versao = "v1.1",
+    [string]$Versao = "v1.2",
     [string]$ApkLocal = "",
     [switch]$SemInstalar
 )
