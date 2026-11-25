@@ -37,4 +37,4 @@ Documentação de qualidade: `docs/ROTEIRO_DE_TESTES.md`, `docs/RELATORIO_DE_TES
 
 ## Licença
 
-Este projeto é distribuído sob a [licença MIT](LICENSE). Você pode usar, copiar, alterar e distribuir o código, desde que mantenha o aviso de copyright.
+Este projeto é distribuído sob a [GNU GPLv3](LICENSE). Você pode usar, estudar, modificar e redistribuir o código. Se distribuir uma versão modificada, ela também precisa ser publicada sob a GPLv3, com o código-fonte disponível.
