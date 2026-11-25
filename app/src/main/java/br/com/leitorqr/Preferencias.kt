@@ -1,6 +1,7 @@
 package br.com.leitorqr
 
 import android.content.Context
+import androidx.core.content.edit
 
 /**
  * Preferências do usuário, guardadas só neste aparelho (SharedPreferences).
@@ -12,7 +13,6 @@ object Preferencias {
     private const val CHAVE_BIPS = "feedback_bips"
     private const val CHAVE_VOZ_APP = "voz_do_aplicativo"
     private const val CHAVE_PEDIU_CAMERA = "pediu_camera"
-    private const val CHAVE_PEDIU_MICROFONE = "pediu_microfone"
 
     private fun prefs(context: Context) =
         context.getSharedPreferences(ARQUIVO, Context.MODE_PRIVATE)
@@ -20,12 +20,12 @@ object Preferencias {
     /** Vibração a cada sinal da busca e ao ler o QR code. Padrão: ligada. */
     fun vibracaoLigada(context: Context) = prefs(context).getBoolean(CHAVE_VIBRACAO, true)
     fun definirVibracao(context: Context, ligada: Boolean) =
-        prefs(context).edit().putBoolean(CHAVE_VIBRACAO, ligada).apply()
+        prefs(context).edit { putBoolean(CHAVE_VIBRACAO, ligada) }
 
     /** Bips durante a busca e ao ler o QR code. Padrão: ligados. */
     fun bipsLigados(context: Context) = prefs(context).getBoolean(CHAVE_BIPS, true)
     fun definirBips(context: Context, ligados: Boolean) =
-        prefs(context).edit().putBoolean(CHAVE_BIPS, ligados).apply()
+        prefs(context).edit { putBoolean(CHAVE_BIPS, ligados) }
 
     /**
      * Voz do aplicativo (TTS). Padrão: ligada no Android, porque o TalkBack não lê sozinho
@@ -34,14 +34,11 @@ object Preferencias {
      */
     fun vozDoAplicativoLigada(context: Context) = prefs(context).getBoolean(CHAVE_VOZ_APP, true)
     fun definirVozDoAplicativo(context: Context, ligada: Boolean) =
-        prefs(context).edit().putBoolean(CHAVE_VOZ_APP, ligada).apply()
+        prefs(context).edit { putBoolean(CHAVE_VOZ_APP, ligada) }
 
     /** Guarda se o pedido de permissão já foi feito, para saber se a permissão foi bloqueada. */
     fun pediuCamera(context: Context) = prefs(context).getBoolean(CHAVE_PEDIU_CAMERA, false)
     fun marcarPediuCamera(context: Context) =
-        prefs(context).edit().putBoolean(CHAVE_PEDIU_CAMERA, true).apply()
+        prefs(context).edit { putBoolean(CHAVE_PEDIU_CAMERA, true) }
 
-    fun pediuMicrofone(context: Context) = prefs(context).getBoolean(CHAVE_PEDIU_MICROFONE, false)
-    fun marcarPediuMicrofone(context: Context) =
-        prefs(context).edit().putBoolean(CHAVE_PEDIU_MICROFONE, true).apply()
 }

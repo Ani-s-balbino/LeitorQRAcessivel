@@ -9,9 +9,9 @@ android {
     defaultConfig {
         applicationId = "br.com.leitorqr"
         minSdk = 26
-        targetSdk = 34
-        versionCode = 4
-        versionName = "1.3"
+        targetSdk = 37
+        versionCode = 5
+        versionName = "1.3.1"
     }
 
     buildTypes {

@@ -32,6 +32,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.accessibility.AccessibilityEvent
+import android.view.accessibility.AccessibilityManager
 import android.view.accessibility.AccessibilityNodeInfo
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
@@ -50,6 +51,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
+import androidx.core.net.toUri
 import br.com.leitorqr.databinding.ActivityMainBinding
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
@@ -203,6 +205,9 @@ class MainActivity : AppCompatActivity() {
         handler.postDelayed(mostrarProximaMensagem, espera)
     }
 
+    // O foco é movido de propósito para o aviso quando a pessoa está parada:
+    // é o que faz o TalkBack ler o texto novo sem ela precisar arrastar a tela.
+    @Suppress("AccessibilityFocus")
     private fun mostrarProxima() {
         val texto = pendente ?: return
         pendente = null
@@ -215,7 +220,7 @@ class MainActivity : AppCompatActivity() {
             // A pessoa está percorrendo a tela: o aviso é anunciado pelo TalkBack sem tirar o foco dela.
             binding.textoStatus.accessibilityLiveRegion = View.ACCESSIBILITY_LIVE_REGION_NONE
             binding.textoStatus.text = texto
-            binding.textoStatus.announceForAccessibility(texto)
+            anunciarAoLeitor(texto)
         } else {
             // Ela está parada: o foco vai para o aviso novo. Sem região "ao vivo", para não ler duas vezes.
             binding.textoStatus.accessibilityLiveRegion = View.ACCESSIBILITY_LIVE_REGION_NONE
@@ -226,6 +231,22 @@ class MainActivity : AppCompatActivity() {
         if (ttsPronto) {
             tts?.speak(texto, TextToSpeech.QUEUE_FLUSH, null, "orientacao")
         }
+    }
+
+    /**
+     * Envia o aviso ao leitor de tela sem mover o foco. Usa o tipo de evento de anúncio, que o TalkBack
+     * lê mesmo quando a pessoa está navegando. A API está marcada como obsoleta, mas continua funcionando
+     * em todas as versões que o app suporta; o aviso de depreciação fica suprimido de propósito.
+     */
+    @Suppress("DEPRECATION")
+    private fun anunciarAoLeitor(texto: String) {
+        val gerenciador = getSystemService(Context.ACCESSIBILITY_SERVICE) as? AccessibilityManager ?: return
+        if (!gerenciador.isEnabled) return
+        val evento = AccessibilityEvent.obtain(AccessibilityEvent.TYPE_ANNOUNCEMENT)
+        evento.className = javaClass.name
+        evento.packageName = packageName
+        evento.text.add(texto)
+        gerenciador.sendAccessibilityEvent(evento)
     }
 
     /**
@@ -515,7 +536,7 @@ class MainActivity : AppCompatActivity() {
                 val email = qr.email
                 val endereco = email?.address
                 if (!endereco.isNullOrBlank()) {
-                    val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:")).apply {
+                    val intent = Intent(Intent.ACTION_SENDTO, "mailto:".toUri()).apply {
                         putExtra(Intent.EXTRA_EMAIL, arrayOf(endereco))
                         email.subject?.let { putExtra(Intent.EXTRA_SUBJECT, it) }
                         email.body?.let { putExtra(Intent.EXTRA_TEXT, it) }
@@ -527,7 +548,7 @@ class MainActivity : AppCompatActivity() {
                 val numero = qr.phone?.number
                 if (!numero.isNullOrBlank()) {
                     // ACTION_DIAL só abre o discador com o número; quem decide ligar é a pessoa.
-                    val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(numero)))
+                    val intent = Intent(Intent.ACTION_DIAL, ("tel:" + Uri.encode(numero)).toUri())
                     return AcaoQr("Telefone $numero", "É um número de telefone: $numero.", "telefone", intent)
                 }
             }
@@ -535,7 +556,7 @@ class MainActivity : AppCompatActivity() {
                 val sms = qr.sms
                 val numero = sms?.phoneNumber
                 if (!numero.isNullOrBlank()) {
-                    val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + Uri.encode(numero))).apply {
+                    val intent = Intent(Intent.ACTION_SENDTO, ("smsto:" + Uri.encode(numero)).toUri()).apply {
                         sms.message?.let { putExtra("sms_body", it) }
                     }
                     return AcaoQr("Mensagem de texto para $numero", "É uma mensagem de texto para $numero.", "mensagem", intent, usarSeletor = true)
@@ -545,7 +566,7 @@ class MainActivity : AppCompatActivity() {
                 val ponto = qr.geoPoint
                 if (ponto != null) {
                     val coord = "${ponto.lat},${ponto.lng}"
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:$coord?q=$coord"))
+                    val intent = Intent(Intent.ACTION_VIEW, "geo:$coord?q=$coord".toUri())
                     return AcaoQr("Localização no mapa", "É uma localização no mapa.", "mapa", intent, usarSeletor = true)
                 }
             }
@@ -566,7 +587,7 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        val uri = Uri.parse(texto).buildUpon().scheme(esquema).build()
+        val uri = texto.toUri().buildUpon().scheme(esquema).build()
         val intent = Intent(Intent.ACTION_VIEW, uri).addCategory(Intent.CATEGORY_BROWSABLE)
 
         // 3) Link da internet (e documentos na internet)

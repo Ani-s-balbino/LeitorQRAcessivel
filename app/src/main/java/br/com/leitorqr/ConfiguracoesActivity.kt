@@ -11,12 +11,12 @@ import android.os.Bundle
 import android.provider.Settings
 import android.view.View
 import android.view.accessibility.AccessibilityManager
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.net.toUri
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
@@ -170,7 +170,7 @@ class ConfiguracoesActivity : AppCompatActivity() {
 
     private fun enviarFeedback() {
         // O endereço fica só dentro do aplicativo de e-mail; não é mostrado na tela.
-        val envio = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:")).apply {
+        val envio = Intent(Intent.ACTION_SENDTO, "mailto:".toUri()).apply {
             putExtra(Intent.EXTRA_EMAIL, arrayOf(EMAIL_FEEDBACK))
             putExtra(Intent.EXTRA_SUBJECT, getString(R.string.config_feedback_assunto))
         }

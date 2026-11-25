@@ -20,3 +20,21 @@ powershell -ExecutionPolicy Bypass -File .\scripts\instalar-android.ps1
 
 O script baixa o APK da release mais recente, verifica o celular e instala, mostrando cada passo em frases simples.
 Para usar um APK que você já baixou: `-ApkLocal "C:\caminho\arquivo.apk"`.
+
+## Como compilar (linha de comando)
+
+O projeto traz o Gradle wrapper (`gradlew`), então não precisa instalar o Gradle. Você precisa do JDK 17 ou superior e do Android SDK (o Android Studio instala os dois).
+
+```bash
+./gradlew :app:testDebugUnitTest   # testes unitários
+./gradlew :app:lintDebug           # análise de código
+./gradlew :app:assembleDebug       # gera o APK de depuração em app/build/outputs/apk/debug/
+```
+
+No Windows, use `gradlew.bat` no lugar de `./gradlew`.
+
+Documentação de qualidade: `docs/ROTEIRO_DE_TESTES.md`, `docs/RELATORIO_DE_TESTES.md` e `docs/VERSIONAMENTO.md`.
+
+## Licença
+
+Este projeto é distribuído sob a [licença MIT](LICENSE). Você pode usar, copiar, alterar e distribuir o código, desde que mantenha o aviso de copyright.

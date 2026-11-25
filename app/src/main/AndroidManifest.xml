@@ -39,8 +39,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:screenOrientation="portrait">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -51,21 +50,18 @@
             android:name=".ConfiguracoesActivity"
             android:exported="false"
             android:label="@string/titulo_configuracoes"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
+            android:parentActivityName=".MainActivity" />
 
         <activity
             android:name=".DicasActivity"
             android:exported="false"
             android:label="@string/titulo_dicas"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
+            android:parentActivityName=".MainActivity" />
 
         <activity
             android:name=".PoliticaActivity"
             android:exported="false"
             android:label="@string/titulo_politica"
-            android:parentActivityName=".ConfiguracoesActivity"
-            android:screenOrientation="portrait" />
+            android:parentActivityName=".ConfiguracoesActivity" />
     </application>
 </manifest>
