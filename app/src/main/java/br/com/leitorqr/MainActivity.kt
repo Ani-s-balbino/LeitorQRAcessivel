@@ -82,8 +82,6 @@ class MainActivity : AppCompatActivity() {
         const val MAX_CARACTERES_FALADOS = 300
         const val PAUSA_ENTRE_MENSAGENS_MS = 1500L // pausa entre um aviso e outro (1 a 3 s) para o leitor de tela não se atropelar
         const val REPETIR_MENSAGEM_MS = 5000L      // a mesma orientação só volta a ser anunciada depois disso
-        const val NAVEGANDO_RECENTE_MS = 2500L     // se a pessoa moveu o foco há pouco, o aviso não tira o foco dela
-        const val JANELA_FOCO_PROPRIO_MS = 500L    // foco que o próprio app moveu (não conta como navegação da pessoa)
         const val DURACAO_PULSO_BUSCA_MS = 3000L   // respiração lenta da moldura da câmera (sem piscar)
 
         // Esquemas que nunca são abertos: servem para atacar o aparelho, não para o usuário.
@@ -108,8 +106,6 @@ class MainActivity : AppCompatActivity() {
     private var ultimaMensagem = ""
     private var ultimaMensagemTempo = 0L
     private val mostrarProximaMensagem = Runnable { mostrarProxima() }
-    private var ultimaNavegacao = 0L     // última vez que a pessoa moveu o foco com o leitor de tela
-    private var ultimoFocoProprio = 0L   // última vez que o próprio app moveu o foco
     private var animacaoBusca: ObjectAnimator? = null
     private var buscaPausada = false     // parada pela pessoa (botão) ou porque o app saiu da tela
 
@@ -174,8 +170,9 @@ class MainActivity : AppCompatActivity() {
 
         configurarVisual()
         configurarBotoes()
-        acompanharNavegacao()
         garantirVisivelAoReceberFoco()
+        // Ao abrir, o leitor de tela começa no título (primeiro elemento da tela).
+        window.decorView.postDelayed({ focarTituloAoAbrir() }, 600L)
         sincronizarVoz()
         // Ao abrir, o foco do leitor fica no primeiro elemento (o título). Por isso o aviso inicial
         // só muda o texto e não move o foco; a permissão é verificada em onResume.
@@ -205,31 +202,32 @@ class MainActivity : AppCompatActivity() {
         handler.postDelayed(mostrarProximaMensagem, espera)
     }
 
-    // O foco é movido de propósito para o aviso quando a pessoa está parada:
-    // é o que faz o TalkBack ler o texto novo sem ela precisar arrastar a tela.
+    /**
+     * Move o foco do leitor de tela para o título, só na abertura do app. É o único foco forçado
+     * que o app faz: sem ele, o primeiro texto da tela (o parágrafo) recebe o foco.
+     */
     @Suppress("AccessibilityFocus")
+    private fun focarTituloAoAbrir() {
+        binding.textoTitulo.performAccessibilityAction(AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS, null)
+    }
+
+    /**
+     * Mostra o aviso e o anuncia sem mover o foco: quem está arrastando a tela continua no mesmo lugar.
+     * Se a voz do aplicativo estiver ligada, ela fala o aviso; senão, o leitor de tela anuncia.
+     * Assim o aviso nunca é lido duas vezes nem sobrepõe a outra voz.
+     */
     private fun mostrarProxima() {
         val texto = pendente ?: return
         pendente = null
         pendenteUrgente = false
-        val agora = SystemClock.elapsedRealtime()
         ultimaMensagem = texto
-        ultimaMensagemTempo = agora
+        ultimaMensagemTempo = SystemClock.elapsedRealtime()
 
-        if (agora - ultimaNavegacao < NAVEGANDO_RECENTE_MS) {
-            // A pessoa está percorrendo a tela: o aviso é anunciado pelo TalkBack sem tirar o foco dela.
-            binding.textoStatus.accessibilityLiveRegion = View.ACCESSIBILITY_LIVE_REGION_NONE
-            binding.textoStatus.text = texto
-            anunciarAoLeitor(texto)
-        } else {
-            // Ela está parada: o foco vai para o aviso novo. Sem região "ao vivo", para não ler duas vezes.
-            binding.textoStatus.accessibilityLiveRegion = View.ACCESSIBILITY_LIVE_REGION_NONE
-            binding.textoStatus.text = texto
-            ultimoFocoProprio = agora
-            binding.textoStatus.performAccessibilityAction(AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS, null)
-        }
+        binding.textoStatus.text = texto
         if (ttsPronto) {
             tts?.speak(texto, TextToSpeech.QUEUE_FLUSH, null, "orientacao")
+        } else {
+            anunciarAoLeitor(texto)
         }
     }
 
@@ -247,22 +245,6 @@ class MainActivity : AppCompatActivity() {
         evento.packageName = packageName
         evento.text.add(texto)
         gerenciador.sendAccessibilityEvent(evento)
-    }
-
-    /**
-     * Registra quando a pessoa move o foco (arrastar para a direita ou esquerda com o TalkBack).
-     * Assim um aviso novo não tira o foco no meio da navegação.
-     */
-    private fun acompanharNavegacao() {
-        binding.root.accessibilityDelegate = object : View.AccessibilityDelegate() {
-            override fun onRequestSendAccessibilityEvent(host: ViewGroup, child: View, event: AccessibilityEvent): Boolean {
-                if (event.eventType == AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUSED) {
-                    val agora = SystemClock.elapsedRealtime()
-                    if (agora - ultimoFocoProprio > JANELA_FOCO_PROPRIO_MS) ultimaNavegacao = agora
-                }
-                return super.onRequestSendAccessibilityEvent(host, child, event)
-            }
-        }
     }
 
     /**

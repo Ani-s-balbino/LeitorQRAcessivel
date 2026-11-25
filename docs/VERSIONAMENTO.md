@@ -25,6 +25,7 @@ O app usa três informações de versão no `app/build.gradle.kts`:
 | 1.2 | 1.0 | 1 | v1.2 | Voz do aplicativo ligada por padrão; script de instalação |
 | 1.3 | 1.3 | 4 | v1.3 | Correções de revisão, testes unitários, dependências e Gradle atualizados, roteiro e relatório de testes |
 | 1.3.1 | 1.3.1 | 5 | v1.3.1 | Sem avisos de compilador e de lint, targetSdk 37, travas de orientação retiradas, licença MIT |
+| 1.3.2 | 1.3.2 | 6 | v1.3.2 | Avisos dinâmicos anunciados sem mover o foco; foco inicial no título; voz do app substitui o anúncio, para não repetir |
 
 As versões 1.1 e 1.2 foram publicadas sem alterar o `versionName` e o `versionCode`. A partir da 1.3, os números seguem a regra acima.
 

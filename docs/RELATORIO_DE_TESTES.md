@@ -1,7 +1,7 @@
 # Relatório de testes: versão 1.3.1
 
 **Data:** 25/11/2026
-**Versão:** 1.3.1 (versionName) · versionCode 5
+**Versão:** 1.3.2 (versionName) · versionCode 6
 **Ambiente:** Windows 11, Android Studio, JDK 21, Gradle 9.9.2 (pelo `gradlew`), Android Gradle Plugin 9.5.3, Kotlin embutido no AGP, compileSdk 37, targetSdk 37.
 
 ## 1. Resumo
@@ -51,6 +51,12 @@ Os casos estão descritos em `docs/ROTEIRO_DE_TESTES.md`, seção 1.
 
 **Atenção sobre o targetSdk 37:** esta mudança faz o app seguir o comportamento do Android mais novo, incluindo tela de borda a borda. Ela foi feita para cumprir o aviso do lint e as exigências da Play Store. Precisa ser testada no celular (seção 5).
 
+## 4.1 Mudança de comportamento na 1.3.2
+
+- **Avisos dinâmicos:** deixam de mover o foco. Cada aviso é falado pela voz do app (se ligada) ou anunciado ao leitor de tela, sem tirar o foco de quem está arrastando a tela.
+- **Foco inicial:** ao abrir, o foco vai para o título, uma vez.
+- **Pendência:** esta mudança precisa ser confirmada no Samsung A55 com TalkBack, sem arrastar a tela.
+
 ## 5. Testes manuais
 
 **Não foram executados nesta versão.** O roteiro completo está em `docs/ROTEIRO_DE_TESTES.md`, seção 2.
@@ -59,10 +65,10 @@ Itens em aberto, prioridade alta:
 
 | Item | Situação |
 |---|---|
-| Avisos dinâmicos lidos sem arrastar a tela (TalkBack, Samsung A55) | Em aberto. É o principal ponto a confirmar. |
+| Avisos dinâmicos lidos sem arrastar a tela (TalkBack, Samsung A55) | Em aberto. Mudança feita na 1.3.2 (seção 4.1). |
 | Layout com targetSdk 37 (tela de borda a borda, cabeçalho e rolagem) | A testar. |
 | Botão "Configurações do aplicativo" alcançado pelo arrasto | A testar. |
-| Foco inicial no título | A testar. |
+| Foco inicial no título | Corrigido na 1.3.2 (seção 4.1). A testar. |
 
 ## 6. Histórico desta correção
 
