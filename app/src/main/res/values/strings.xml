@@ -51,7 +51,7 @@
     <string name="config_feedback_ambos">Vibração e bips</string>
     <string name="config_secao_voz">Voz do aplicativo</string>
     <string name="config_voz_titulo">Usar a voz do aplicativo</string>
-    <string name="config_voz_explicacao">Deixe esta opção desligada se o TalkBack estiver ligado. Com o TalkBack e a voz do app juntos, as duas falam ao mesmo tempo e se atrapalham. Para usar a voz do app, desligue o TalkBack antes de começar.</string>
+    <string name="config_voz_explicacao">Esta opção vem ligada, porque o TalkBack nem sempre lê sozinho os textos que mudam na tela. Se a voz do app atrapalhar a sua leitura com o TalkBack, desmarque esta opção.</string>
     <string name="config_voz_depois_leitura">Depois de ler o QR code, se quiser ouvir a tela com o leitor de tela, ligue o TalkBack manualmente nas configurações de acessibilidade do celular. O aplicativo não liga o leitor sozinho.</string>
     <string name="config_talkback_ligado">Atenção: o TalkBack está ligado agora. Desligue-o para usar a voz do aplicativo sem sobreposição.</string>
     <string name="config_talkback_desligado">O TalkBack está desligado.</string>

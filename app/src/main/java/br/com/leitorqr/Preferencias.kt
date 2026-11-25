@@ -28,10 +28,11 @@ object Preferencias {
         prefs(context).edit().putBoolean(CHAVE_BIPS, ligados).apply()
 
     /**
-     * Voz do aplicativo (TTS). Padrão: desligada, porque o TalkBack já lê a tela
-     * e as duas vozes se atropelam.
+     * Voz do aplicativo (TTS). Padrão: ligada no Android, porque o TalkBack não lê sozinho
+     * os textos que mudam na tela (testado no Samsung A55). Se atrapalhar, a pessoa desmarca
+     * em Configurações do aplicativo.
      */
-    fun vozDoAplicativoLigada(context: Context) = prefs(context).getBoolean(CHAVE_VOZ_APP, false)
+    fun vozDoAplicativoLigada(context: Context) = prefs(context).getBoolean(CHAVE_VOZ_APP, true)
     fun definirVozDoAplicativo(context: Context, ligada: Boolean) =
         prefs(context).edit().putBoolean(CHAVE_VOZ_APP, ligada).apply()
 
