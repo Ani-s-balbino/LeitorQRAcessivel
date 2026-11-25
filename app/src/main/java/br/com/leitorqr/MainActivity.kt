@@ -22,6 +22,7 @@ import android.os.PersistableBundle
 import android.os.SystemClock
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.os.VibratorManager
 import android.provider.ContactsContract
 import android.provider.Settings
 import android.speech.tts.TextToSpeech
@@ -73,12 +74,6 @@ class MainActivity : AppCompatActivity() {
 
     // ====== Ajustes (pode mexer para calibrar) ======
     private companion object {
-        const val TOLERANCIA_CENTRO = 0.15f      // quanto o QR pode estar fora do centro (fração do quadro)
-        const val TAMANHO_MUITO_LONGE = 0.18f    // tamanho do QR / lado menor do quadro
-        const val TAMANHO_UM_POUCO_LONGE = 0.30f
-        const val TAMANHO_UM_POUCO_PERTO = 0.70f
-        const val TAMANHO_MUITO_PERTO = 0.80f
-        const val LIMITE_INCLINACAO = 0.18f      // diferença entre lados opostos do QR (perspectiva)
         const val TEMPO_ENQUADRADO_MS = 600L     // tempo que precisa ficar bem enquadrado para concluir
         const val TEMPO_LIMITE_ENQUADRAR_MS = 8000L // se não enquadrar em 8 s, lê mesmo assim
         const val LUZ_MINIMA = 45                // brilho médio (0 a 255) abaixo disso = escuro
@@ -140,12 +135,6 @@ class MainActivity : AppCompatActivity() {
     private var inicioDeteccao = 0L
     private var inicioEnquadrado = 0L
     private var inicioEscuro = 0L
-
-    private data class Orientacao(
-        val fala: String,
-        val nivel: Int, // 0 = muito errado, 1 = ajuste médio, 2 = ajuste fino, 3 = perfeito
-        val tom: Int = ToneGenerator.TONE_PROP_BEEP
-    )
 
     /** O que dá para fazer com o QR code lido (abrir, e como). */
     private class AcaoQr(
@@ -224,12 +213,12 @@ class MainActivity : AppCompatActivity() {
 
         if (agora - ultimaNavegacao < NAVEGANDO_RECENTE_MS) {
             // A pessoa está percorrendo a tela: o aviso é anunciado pelo TalkBack sem tirar o foco dela.
-            ViewCompat.setAccessibilityLiveRegion(binding.textoStatus, ViewCompat.ACCESSIBILITY_LIVE_REGION_NONE)
+            binding.textoStatus.accessibilityLiveRegion = View.ACCESSIBILITY_LIVE_REGION_NONE
             binding.textoStatus.text = texto
             binding.textoStatus.announceForAccessibility(texto)
         } else {
             // Ela está parada: o foco vai para o aviso novo. Sem região "ao vivo", para não ler duas vezes.
-            ViewCompat.setAccessibilityLiveRegion(binding.textoStatus, ViewCompat.ACCESSIBILITY_LIVE_REGION_NONE)
+            binding.textoStatus.accessibilityLiveRegion = View.ACCESSIBILITY_LIVE_REGION_NONE
             binding.textoStatus.text = texto
             ultimoFocoProprio = agora
             binding.textoStatus.performAccessibilityAction(AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS, null)
@@ -391,7 +380,7 @@ class MainActivity : AppCompatActivity() {
         buscaPausada = true
         handler.removeCallbacks(loopBip)
         toneGen?.stopTone()
-        (getSystemService(Context.VIBRATOR_SERVICE) as? Vibrator)?.cancel()
+        obterVibrador()?.cancel()
         pararAnimacaoBusca()
         atualizarBotaoPausa()
         if (avisar) anunciar(getString(R.string.status_busca_parada), urgente = true)
@@ -528,8 +517,8 @@ class MainActivity : AppCompatActivity() {
                 if (!endereco.isNullOrBlank()) {
                     val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:")).apply {
                         putExtra(Intent.EXTRA_EMAIL, arrayOf(endereco))
-                        email?.subject?.let { putExtra(Intent.EXTRA_SUBJECT, it) }
-                        email?.body?.let { putExtra(Intent.EXTRA_TEXT, it) }
+                        email.subject?.let { putExtra(Intent.EXTRA_SUBJECT, it) }
+                        email.body?.let { putExtra(Intent.EXTRA_TEXT, it) }
                     }
                     return AcaoQr("E-mail para $endereco", "É um e-mail para $endereco.", "e-mail", intent, usarSeletor = true)
                 }
@@ -547,7 +536,7 @@ class MainActivity : AppCompatActivity() {
                 val numero = sms?.phoneNumber
                 if (!numero.isNullOrBlank()) {
                     val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + Uri.encode(numero))).apply {
-                        sms?.message?.let { putExtra("sms_body", it) }
+                        sms.message?.let { putExtra("sms_body", it) }
                     }
                     return AcaoQr("Mensagem de texto para $numero", "É uma mensagem de texto para $numero.", "mensagem", intent, usarSeletor = true)
                 }
@@ -800,7 +789,7 @@ class MainActivity : AppCompatActivity() {
         val dy = (caixa.exactCenterY() - altura / 2f) / altura
         val inclinacao = calcularInclinacao(qr.cornerPoints)
 
-        val o = avaliar(tamanho, dx, dy, inclinacao)
+        val o = AvaliadorQR.avaliar(tamanho, dx, dy, inclinacao)
 
         intervaloBip = when (o.nivel) {
             0 -> 1000L
@@ -808,7 +797,7 @@ class MainActivity : AppCompatActivity() {
             2 -> 250L
             else -> 120L
         }
-        tomBip = o.tom
+        tomBip = if (o.muitoPerto) ToneGenerator.TONE_PROP_NACK else ToneGenerator.TONE_PROP_BEEP
         anunciar(o.fala)
 
         if (o.nivel == 3) {
@@ -820,59 +809,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun avaliar(tamanho: Float, dx: Float, dy: Float, inclinacao: Float): Orientacao {
-        // 1) Perto demais (QR cortado ou desfocado)
-        if (tamanho > TAMANHO_MUITO_PERTO) {
-            return Orientacao("QR code muito perto. Afaste o celular.", 0, ToneGenerator.TONE_PROP_NACK)
-        }
-
-        // 2) Fora do centro: se o QR aparece à esquerda, o celular deve ir para a esquerda.
-        val direcoes = mutableListOf<String>()
-        if (dx < -TOLERANCIA_CENTRO) direcoes.add("a esquerda")
-        if (dx > TOLERANCIA_CENTRO) direcoes.add("a direita")
-        if (dy < -TOLERANCIA_CENTRO) direcoes.add("cima")
-        if (dy > TOLERANCIA_CENTRO) direcoes.add("baixo")
-        if (direcoes.isNotEmpty()) {
-            val muitoFora = abs(dx) > 0.30f || abs(dy) > 0.30f
-            return Orientacao(
-                "QR code encontrado, fora do centro. Mova o celular para " + direcoes.joinToString(" e para "),
-                if (muitoFora) 0 else 1
-            )
-        }
-
-        // 3) Distância
-        if (tamanho < TAMANHO_MUITO_LONGE) {
-            return Orientacao("QR code muito longe. Aproxime o celular.", 0)
-        }
-        if (tamanho < TAMANHO_UM_POUCO_LONGE) {
-            return Orientacao("Um pouco longe. Aproxime mais um pouco.", 1)
-        }
-        if (tamanho > TAMANHO_UM_POUCO_PERTO) {
-            return Orientacao("Um pouco perto. Afaste um pouco.", 1)
-        }
-
-        // 4) Ângulo da câmera
-        if (inclinacao > LIMITE_INCLINACAO) {
-            return Orientacao("Celular inclinado. Deixe o celular paralelo à tela.", 2)
-        }
-
-        return Orientacao("QR code bem enquadrado. Segure parado.", 3)
-    }
-
-    /**
-     * Estima a inclinação pela perspectiva: se o celular está torto em relação à tela,
-     * lados opostos do QR aparecem com tamanhos diferentes. 0 = de frente, quanto maior, mais torto.
-     */
+    /** Estima a inclinação pela perspectiva, a partir dos cantos do QR code. */
     private fun calcularInclinacao(pontos: Array<Point>?): Float {
         if (pontos == null || pontos.size < 4) return 0f
         fun dist(a: Point, b: Point) = hypot((a.x - b.x).toFloat(), (a.y - b.y).toFloat())
-        val topo = dist(pontos[0], pontos[1])
-        val direita = dist(pontos[1], pontos[2])
-        val base = dist(pontos[2], pontos[3])
-        val esquerda = dist(pontos[3], pontos[0])
-        val horizontal = abs(topo - base) / max(max(topo, base), 1f)
-        val vertical = abs(esquerda - direita) / max(max(esquerda, direita), 1f)
-        return max(horizontal, vertical)
+        return AvaliadorQR.inclinacao(
+            topo = dist(pontos[0], pontos[1]),
+            direita = dist(pontos[1], pontos[2]),
+            base = dist(pontos[2], pontos[3]),
+            esquerda = dist(pontos[3], pontos[0])
+        )
     }
 
     private fun concluir(qr: Barcode) {
@@ -977,8 +923,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     @Suppress("DEPRECATION")
+    private fun obterVibrador(): Vibrator? =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            (getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as? VibratorManager)?.defaultVibrator
+        } else {
+            getSystemService(Context.VIBRATOR_SERVICE) as? Vibrator
+        }
+
     private fun vibrar(duracaoMs: Long = 400) {
-        val v = getSystemService(Context.VIBRATOR_SERVICE) as? Vibrator ?: return
+        val v = obterVibrador() ?: return
         if (v.hasVibrator()) {
             v.vibrate(VibrationEffect.createOneShot(duracaoMs, VibrationEffect.DEFAULT_AMPLITUDE))
         }

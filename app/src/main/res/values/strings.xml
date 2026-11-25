@@ -22,8 +22,6 @@
     <string name="acao_abrir_qr_tipo">Abrir QR code: %1$s</string>
 
     <!-- Permissão da câmera -->
-    <string name="permissao_titulo">Precisamos da câmera</string>
-    <string name="permissao_explicacao">O aplicativo usa a câmera traseira só para procurar o QR code na tela e guiar você por voz. Nenhuma foto ou vídeo é gravado ou enviado.</string>
     <string name="permissao_botao_permitir">Permitir uso da câmera</string>
     <string name="permissao_botao_configuracoes">Abrir configurações do aplicativo</string>
     <!-- Aviso curto no cartão de status: não repete a explicação dos parágrafos acima -->
@@ -39,11 +37,9 @@
     <!-- Configurações -->
     <string name="botao_configuracoes">Configurações do aplicativo</string>
     <string name="titulo_configuracoes">Configurações do aplicativo</string>
-    <string name="botao_voltar_descricao">Voltar para a tela anterior</string>
     <string name="config_talkback_atencao">Atenção: o TalkBack está ligado agora. Se houver sobreposição de falas entre a voz do aplicativo e o TalkBack, desligue o leitor enquanto o aplicativo estiver buscando um QR code.</string>
     <string name="permissao_paragrafo_1">Precisamos da câmera para achar o QR code. Toque no botão Permitir uso da câmera e, na janela do sistema, escolha Permitir apenas durante o uso do app.</string>
     <string name="permissao_paragrafo_2">O aplicativo usa a câmera traseira só para procurar o QR code na tela e guiar você por voz e bips. Nenhuma foto ou vídeo é gravado ou enviado.</string>
-    <string name="config_camera_titulo">Permissão da câmera</string>
     <string name="config_feedback_dica">Escolha um. Vibração, bips ou os dois.</string>
     <string name="config_secao_feedback">Como o app avisa durante a busca</string>
     <string name="config_feedback_vibracao">Vibração</string>
@@ -53,16 +49,12 @@
     <string name="config_voz_titulo">Usar a voz do aplicativo</string>
     <string name="config_voz_explicacao">Esta opção vem ligada, porque o TalkBack nem sempre lê sozinho os textos que mudam na tela. Se a voz do app atrapalhar a sua leitura com o TalkBack, desmarque esta opção.</string>
     <string name="config_voz_depois_leitura">Depois de ler o QR code, se quiser ouvir a tela com o leitor de tela, ligue o TalkBack manualmente nas configurações de acessibilidade do celular. O aplicativo não liga o leitor sozinho.</string>
-    <string name="config_talkback_ligado">Atenção: o TalkBack está ligado agora. Desligue-o para usar a voz do aplicativo sem sobreposição.</string>
     <string name="config_talkback_desligado">O TalkBack está desligado.</string>
     <string name="config_secao_permissoes">Permissões</string>
     <string name="config_permissoes_explicacao">Se você negou alguma permissão e ela não está funcionando, toque no botão para liberar de novo.</string>
     <string name="config_camera_permitida">Câmera: permitida</string>
     <string name="config_camera_negada">Câmera: não permitida</string>
-    <string name="config_microfone_permitido">Microfone: permitido</string>
-    <string name="config_microfone_negado">Microfone: não permitido</string>
     <string name="config_botao_permitir_camera">Permitir câmera</string>
-    <string name="config_botao_permitir_microfone">Permitir microfone</string>
     <string name="config_botao_configuracoes_permissao">Abrir configurações do aplicativo para liberar</string>
     <string name="config_secao_ajuda">Privacidade e contato</string>
     <string name="config_botao_politica">Política de privacidade e termos de uso</string>
