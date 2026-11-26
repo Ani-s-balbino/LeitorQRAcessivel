@@ -1,39 +1,60 @@
-# Leitor QR Acessível
+# Leitor QR Acessível (Android)
 
-App Android nativo (Kotlin + CameraX + ML Kit) que guia pessoas cegas até um QR code na tela,
-com voz em português e bips ao vivo.
+Aplicativo Android que ajuda pessoas cegas a encontrar, enquadrar e ler um QR code sozinhas. A câmera traseira guia a busca por voz (opcional), bips e vibração até o código estar bem enquadrado. Depois de ler, o app mostra o conteúdo com ações seguras: abrir o link, copiar, compartilhar e ouvir novamente.
 
-Abrir no Android Studio: menu File > Open > escolher a pasta LeitorQRAcessivel.
-Rodar no celular (depuração USB ligada): Shift+F10.
-Calibragem: constantes no começo de MainActivity.kt (bloco "Ajustes").
+**Versão atual para testes:** 1.4.0 · **Licença:** GPLv3 · **Plataforma:** Android 8.0 (API 26) ou superior
 
-## Instalação no Android pelo terminal
+## Instalar a versão de teste
 
-Para testar a versão de teste, sem precisar do Android Studio:
-
-1. Ligue o celular no computador pelo cabo USB e ative a depuração USB (Configurações > Opções do desenvolvedor).
-2. No PowerShell, dentro da pasta do projeto, rode:
+1. Baixe o APK na [release 1.4.0](https://github.com/Ani-s-balbino/LeitorQRAcessivel/releases/tag/v1.4.0).
+2. No celular, abra o arquivo e permita a instalação de apps desconhecidos, se pedir.
+3. Ou, pelo computador, com o celular conectado por USB, rode:
 
 ```
 powershell -ExecutionPolicy Bypass -File .\scripts\instalar-android.ps1
 ```
 
-O script baixa o APK da release mais recente, verifica o celular e instala, mostrando cada passo em frases simples.
-Para usar um APK que você já baixou: `-ApkLocal "C:\caminho\arquivo.apk"`.
+## Principais funções
 
-## Como compilar (linha de comando)
+- Busca guiada com avisos de direção, distância e inclinação.
+- Feedback escolhido pela pessoa: nenhum, bips, vibração, ou vibração e bips.
+- Voz do aplicativo opcional, em português, para quem não usa o TalkBack.
+- Leitura do QR code com ações: abrir, copiar, compartilhar e ouvir novamente.
+- Parar e retomar a busca, e lanterna.
+- Tela de dicas para captura (papel em modo paisagem, tela de computador, distância e luz).
+- Configurações do aplicativo, política de privacidade e termos, e envio de feedback por e-mail.
 
-O projeto traz o Gradle wrapper (`gradlew`), então não precisa instalar o Gradle. Você precisa do JDK 17 ou superior e do Android SDK (o Android Studio instala os dois).
+## Capturas de tela
+
+![Busca iniciada](docs/imagens/01-busca-procurando.png)
+![QR code encontrado](docs/imagens/02-qr-encontrado-fora-do-centro.png)
+![QR code lido](docs/imagens/03-qr-lido-resultado.png)
+
+## Documentação
+
+- [Relatório de testes 1.4.0 (Markdown)](docs/RELATORIO_DE_TESTES.md) · [versão Word](docs/RELATORIO_DE_TESTES.docx)
+- [Roteiro de testes](docs/ROTEIRO_DE_TESTES.md)
+- [Versionamento e histórico](docs/VERSIONAMENTO.md)
+
+## Como compilar
+
+O projeto traz o Gradle wrapper (`gradlew`). Você precisa do JDK 17 ou superior e do Android SDK (o Android Studio instala os dois).
 
 ```bash
 ./gradlew :app:testDebugUnitTest   # testes unitários
 ./gradlew :app:lintDebug           # análise de código
-./gradlew :app:assembleDebug       # gera o APK de depuração em app/build/outputs/apk/debug/
+./gradlew :app:assembleDebug       # APK de depuração em app/build/outputs/apk/debug/
 ```
 
 No Windows, use `gradlew.bat` no lugar de `./gradlew`.
 
-Documentação de qualidade: `docs/ROTEIRO_DE_TESTES.md`, `docs/RELATORIO_DE_TESTES.md` e `docs/VERSIONAMENTO.md`.
+## Privacidade
+
+Nenhum dado pessoal é coletado ou enviado. A leitura do QR code é feita no próprio aparelho. A política completa está dentro do aplicativo, em Configurações do aplicativo > Privacidade e termos.
+
+## Versão para iPhone
+
+Existe uma versão em SwiftUI para iPhone: [LeitorQRAcessivel-iOS](https://github.com/Ani-s-balbino/LeitorQRAcessivel-iOS).
 
 ## Licença
 
