@@ -1,80 +1,96 @@
-# Relatório de testes: versão 1.3.1
+# Relatório de testes: versão 1.4.0
 
-**Data:** 25/11/2026
-**Versão:** 1.3.2 (versionName) · versionCode 6
-**Ambiente:** Windows 11, Android Studio, JDK 21, Gradle 9.9.2 (pelo `gradlew`), Android Gradle Plugin 9.5.3, Kotlin embutido no AGP, compileSdk 37, targetSdk 37.
+**Data do teste:** 25/11/2026
+**Versão testada:** 1.4.0 (versionName) · versionCode 7
+**Aparelho:** Samsung Galaxy A55 5G · Android: não informado
+**Leitor de tela:** TalkBack
+**Vídeo de referência:** `Screen_Recording_20261125_204042` (2 min)
+**Repositório:** https://github.com/Ani-s-balbino/LeitorQRAcessivel
 
 ## 1. Resumo
 
 | Área | Resultado |
 |---|---|
-| Testes unitários | 15 de 15 passaram |
-| Compilação do Kotlin | Sem erros e sem avisos |
-| Lint (`lintDebug`) | 0 erros, 0 avisos |
-| Build de depuração (`assembleDebug`) | Passou |
-| Testes manuais no celular | **Não executados nesta versão** (ver seção 5) |
+| Testes unitários (automatizados) | 22 de 22 passaram |
+| Lint (análise de código) | 0 avisos |
+| Busca guiada com TalkBack | **Passou** (observado no vídeo) |
+| Avisos lidos automaticamente pelo TalkBack | **Passou**, sem arrastar a tela |
+| Leitura do QR code: tempo até o aviso "QR code lido" | **Ajuste pendente**: o aviso demora por causa da fila |
+| Bips e vibração | **Passou**, funcionam bem |
+| Opção "Nenhum" no feedback | Não observada no vídeo: a testar |
+| Voz do aplicativo desligada por padrão | Confirmado: a pessoa testadora usou o TalkBack |
 
-## 2. Testes unitários
+**Conclusão:** a versão 1.4.0 lê os avisos automaticamente com o TalkBack. Resta um ajuste: os textos que ficam na fila de leitura atrasam o aviso "QR code lido".
 
-Rodados com `./gradlew :app:testDebugUnitTest`.
+## 2. Evidências (prints do vídeo, no Android)
 
-| Classe de teste | Testes | Passaram | Falharam |
-|---|---|---|---|
-| `AvaliadorQRTest` | 15 | 15 | 0 |
+### 2.1 Busca guiada
 
-Os casos estão descritos em `docs/ROTEIRO_DE_TESTES.md`, seção 1.
+![Busca iniciada: procurando QR code](imagens/01-busca-procurando.png)
 
-## 3. Qualidade do código
+Aviso "Procurando QR code. Mova o celular lentamente." aparece com os botões de lanterna, parar busca, dicas e configurações.
 
-- **Avisos do compilador:** o aviso de `announceForAccessibility` foi substituído por envio de evento ao leitor de tela. O envio de anúncio ainda usa um tipo de evento marcado como obsoleto pelo Android; o aviso está suprimido de propósito, com comentário no código, porque é a forma que faz o leitor ler o aviso.
-- **Foco forçado:** o movimento de foco para o aviso de status também está suprimido de propósito, com comentário. É o que faz o TalkBack ler o texto novo quando a pessoa está parada.
-- **Preferências:** a edição usa a extensão KTX. A preferência do microfone foi removida, porque a tela não pede mais essa permissão.
-- **Orientação da tela:** as travas de tela em retrato foram retiradas. As telas têm rolagem, então funcionam em qualquer orientação.
-- **Cabeçalho:** o ícone do título virou um desenho ao lado do texto, o que deixou o cabeçalho mais simples para o leitor de tela. O ícone é decoração, e não é lido.
-- **Fundo:** removi o fundo repetido das telas, porque o tema já pinta o fundo.
+![QR code encontrado, fora do centro](imagens/02-qr-encontrado-fora-do-centro.png)
 
-## 4. Dependências e versões
+Aviso "QR code encontrado, fora do centro. Mova o celular para baixo." O TalkBack leu o aviso sem arrastar a tela.
 
-| Item | Antes (1.3) | Agora (1.3.1) |
+### 2.2 Leitura e ações
+
+![QR code lido e resultado](imagens/03-qr-lido-resultado.png)
+
+Aviso "QR code lido. É um atalho que abre no aplicativo Itaú." com o conteúdo lido na tela.
+
+![Ações do resultado](imagens/04-acoes-do-resultado.png)
+
+Botões de ação: abrir QR code, compartilhar, copiar conteúdo, ouvir novamente e escanear outro QR code. "Conteúdo copiado" também foi exibido.
+
+### 2.3 Dicas e configurações
+
+![Dicas e configurações do aplicativo](imagens/05-dicas-e-configuracoes.png)
+
+Os botões "Dicas para captura de QR code" e "Configurações do aplicativo" aparecem no fim da tela de busca.
+
+## 3. Itens testados
+
+| Item | Resultado | Observação |
 |---|---|---|
-| Gradle | 9.9.2 | 9.9.2 |
-| Android Gradle Plugin | 9.5.3 | 9.5.3 |
-| Kotlin | embutido no AGP | embutido no AGP (plugin separado removido) |
-| compileSdk | 37 | 37 |
-| targetSdk | 34 | **37** |
-| core-ktx | 1.19.1 | 1.19.1 |
-| appcompat | 1.8.0 | 1.8.0 |
-| material | 1.14.0 | 1.14.0 |
-| CameraX | 1.7.0 | 1.7.0 |
-| ML Kit barcode | 17.3.0 | 17.3.0 |
-| JUnit (testes) | 4.13.2 | 4.13.2 |
+| Título lido ao abrir o app | OK | TalkBack lê "Título" logo após o nome do app |
+| Avisos de direção (esquerda, direita, cima, baixo) | OK | Lidos automaticamente |
+| Avisos de distância (longe, perto) | OK | Lidos automaticamente |
+| Aviso "Ainda procurando. Aumente o brilho" | OK | Lido automaticamente |
+| Leitura do conteúdo do QR code | OK | Conteúdo lido e exibido |
+| Abrir o link ou atalho (Itaú) | OK | O aplicativo do banco abriu |
+| Copiar conteúdo | OK | Aviso "Conteúdo copiado" |
+| Escanear outro QR code | OK | Botão presente e funcional |
+| Bips e vibração | OK | Funcionam bem, segundo a pessoa testadora |
+| Aviso "QR code lido" com TalkBack | **Atrasado** | Os avisos anteriores ficam na fila de leitura e atrasam este aviso |
 
-**Atenção sobre o targetSdk 37:** esta mudança faz o app seguir o comportamento do Android mais novo, incluindo tela de borda a borda. Ela foi feita para cumprir o aviso do lint e as exigências da Play Store. Precisa ser testada no celular (seção 5).
+## 4. Problemas encontrados
 
-## 4.1 Mudança de comportamento na 1.3.2
+| # | Problema | Gravidade | Situação |
+|---|---|---|---|
+| 1 | O aviso "QR code lido" demora para ser falado pelo TalkBack, porque os avisos anteriores ficam na fila de leitura | Média | **Pendente**: é o próximo ajuste. Bips e vibração não são afetados. |
 
-- **Avisos dinâmicos:** deixam de mover o foco. Cada aviso é falado pela voz do app (se ligada) ou anunciado ao leitor de tela, sem tirar o foco de quem está arrastando a tela.
-- **Foco inicial:** ao abrir, o foco vai para o título, uma vez.
-- **Pendência:** esta mudança precisa ser confirmada no Samsung A55 com TalkBack, sem arrastar a tela.
+## 5. Não testado nesta versão
 
-## 5. Testes manuais
+- Opção **"Nenhum (sem bips e sem vibração)"** no feedback.
+- Parar e retomar a busca.
+- Lanterna.
+- Tela de política de privacidade e termos.
+- Envio de feedback por e-mail.
+- Teste com voz do aplicativo ligada e TalkBack ligado.
 
-**Não foram executados nesta versão.** O roteiro completo está em `docs/ROTEIRO_DE_TESTES.md`, seção 2.
+## 6. Testes automatizados
 
-Itens em aberto, prioridade alta:
+| Classe de teste | Testes | Resultado |
+|---|---|---|
+| `AvaliadorQRTest` (regras de orientação) | 15 | 15 passaram |
+| `ModoFeedbackTest` (modos de feedback) | 7 | 7 passaram |
 
-| Item | Situação |
-|---|---|
-| Avisos dinâmicos lidos sem arrastar a tela (TalkBack, Samsung A55) | Em aberto. Mudança feita na 1.3.2 (seção 4.1). |
-| Layout com targetSdk 37 (tela de borda a borda, cabeçalho e rolagem) | A testar. |
-| Botão "Configurações do aplicativo" alcançado pelo arrasto | A testar. |
-| Foco inicial no título | Corrigido na 1.3.2 (seção 4.1). A testar. |
+Rodar com `./gradlew :app:testDebugUnitTest`.
 
-## 6. Histórico desta correção
+## 7. Próximos passos
 
-- Patch do colega aplicado na 1.3 (backup, `VibratorManager`, ícone monocromático, limpeza de textos).
-- Esta versão corrige os avisos que restavam do compilador e do lint, atualiza o targetSdk e adiciona a licença MIT.
-
-## 7. Conclusão
-
-A versão 1.3.1 compila sem erros nem avisos, passa nos 15 testes unitários e não tem avisos de lint. O funcionamento no celular ainda precisa ser confirmado com o roteiro manual, principalmente a leitura automática dos avisos.
+1. Ajustar a fila de avisos para que "QR code lido" seja falado logo, sem esperar os avisos anteriores.
+2. Testar a opção "Nenhum" e o restante da lista acima.
+3. Repetir a gravação depois do ajuste e atualizar este relatório.

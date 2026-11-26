@@ -69,7 +69,8 @@ Teste com a versão instalada no celular. Marque cada item como **OK**, **FALHOU
 - [ ] Quando a pessoa está parada, o aviso novo recebe o foco do leitor de tela.
 - [ ] Quando a pessoa está arrastando a tela, o aviso novo é lido sem tirar o foco dela.
 - [ ] Os avisos não se atropelam: há uma pausa entre um e outro.
-- [ ] Com o TalkBack ligado, anotar se os avisos são lidos sozinhos (sem arrastar a tela). Esse item é o que está em aberto.
+- [ ] Com o TalkBack ligado, os avisos são lidos sozinhos (sem arrastar a tela). Confirmado na versão 1.4.0.
+- [ ] Ajuste pendente: o aviso "QR code lido" demora porque os avisos anteriores ficam na fila de leitura.
 
 ### 2.6 Parar e retomar
 
@@ -87,9 +88,10 @@ Teste com a versão instalada no celular. Marque cada item como **OK**, **FALHOU
 ### 2.8 Configurações do aplicativo
 
 - [ ] O botão "Configurações do aplicativo" é alcançado pelo arrasto, com ou sem resultado na tela.
-- [ ] A opção de feedback (vibração, bips ou os dois) funciona e fica salva ao fechar o app.
-- [ ] "Usar a voz do aplicativo" vem ligada, e a voz fala os avisos.
-- [ ] Desmarcar a voz do aplicativo para de falar os avisos.
+- [ ] A opção de feedback (nenhum, vibração, bips ou vibração e bips) funciona e fica salva ao fechar o app.
+- [ ] Com "Nenhum" selecionado, não há bips nem vibração durante a busca nem ao ler o QR code.
+- [ ] "Usar a voz do aplicativo" vem desligada, porque o TalkBack já lê os avisos.
+- [ ] Ligar a voz do aplicativo faz ela falar os avisos; desligar faz parar.
 - [ ] O aviso sobre o TalkBack aparece quando o TalkBack está ligado.
 - [ ] "Permitir câmera" e "Abrir configurações do aplicativo para liberar" funcionam.
 - [ ] "Enviar feedback por e-mail" abre o aplicativo de e-mail, com o endereço já preenchido.
