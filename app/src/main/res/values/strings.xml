@@ -40,14 +40,15 @@
     <string name="config_talkback_atencao">Atenção: o TalkBack está ligado agora. Se houver sobreposição de falas entre a voz do aplicativo e o TalkBack, desligue o leitor enquanto o aplicativo estiver buscando um QR code.</string>
     <string name="permissao_paragrafo_1">Precisamos da câmera para achar o QR code. Toque no botão Permitir uso da câmera e, na janela do sistema, escolha Permitir apenas durante o uso do app.</string>
     <string name="permissao_paragrafo_2">O aplicativo usa a câmera traseira só para procurar o QR code na tela e guiar você por voz e bips. Nenhuma foto ou vídeo é gravado ou enviado.</string>
-    <string name="config_feedback_dica">Escolha um. Vibração, bips ou os dois.</string>
+    <string name="config_feedback_dica">Escolha uma opção: nenhum aviso sonoro ou tátil, só bips, só vibração, ou os dois.</string>
     <string name="config_secao_feedback">Como o app avisa durante a busca</string>
+    <string name="config_feedback_nenhum">Nenhum (sem bips e sem vibração)</string>
     <string name="config_feedback_vibracao">Vibração</string>
     <string name="config_feedback_bips">Bips</string>
     <string name="config_feedback_ambos">Vibração e bips</string>
     <string name="config_secao_voz">Voz do aplicativo</string>
     <string name="config_voz_titulo">Usar a voz do aplicativo</string>
-    <string name="config_voz_explicacao">Esta opção vem ligada, porque o TalkBack nem sempre lê sozinho os textos que mudam na tela. Se a voz do app atrapalhar a sua leitura com o TalkBack, desmarque esta opção.</string>
+    <string name="config_voz_explicacao">Esta opção vem desligada, porque o TalkBack já lê os avisos da busca. Se quiser ouvir também a voz do aplicativo, ligue esta opção. Para evitar falas sobrepostas, use uma das duas, não as duas ao mesmo tempo.</string>
     <string name="config_voz_depois_leitura">Depois de ler o QR code, se quiser ouvir a tela com o leitor de tela, ligue o TalkBack manualmente nas configurações de acessibilidade do celular. O aplicativo não liga o leitor sozinho.</string>
     <string name="config_talkback_desligado">O TalkBack está desligado.</string>
     <string name="config_secao_permissoes">Permissões</string>

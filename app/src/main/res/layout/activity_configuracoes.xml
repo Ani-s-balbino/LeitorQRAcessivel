@@ -71,6 +71,14 @@
                     android:orientation="vertical">
 
                     <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/radioNenhum"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:text="@string/config_feedback_nenhum"
+                        android:textColor="@color/texto"
+                        android:textSize="18sp" />
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
                         android:id="@+id/radioVibracao"
                         android:layout_width="match_parent"
                         android:layout_height="52dp"

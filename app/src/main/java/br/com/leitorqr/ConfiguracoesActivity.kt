@@ -95,24 +95,24 @@ class ConfiguracoesActivity : AppCompatActivity() {
     // ===================== Feedback durante a busca =====================
 
     private fun configurarFeedback() {
-        val vibra = Preferencias.vibracaoLigada(this)
-        val bips = Preferencias.bipsLigados(this)
+        val modo = ModoFeedback.de(Preferencias.vibracaoLigada(this), Preferencias.bipsLigados(this))
         binding.grupoFeedback.check(
-            when {
-                vibra && bips -> binding.radioAmbos.id
-                vibra -> binding.radioVibracao.id
-                else -> binding.radioBips.id
+            when (modo) {
+                ModoFeedback.NENHUM -> binding.radioNenhum.id
+                ModoFeedback.VIBRACAO -> binding.radioVibracao.id
+                ModoFeedback.BIPS -> binding.radioBips.id
+                ModoFeedback.VIBRACAO_E_BIPS -> binding.radioAmbos.id
             }
         )
         binding.grupoFeedback.setOnCheckedChangeListener { _, id ->
-            // Sempre fica pelo menos um tipo de aviso ligado: a escolha é entre os três.
-            val (vibracao, bipsLigados) = when (id) {
-                binding.radioVibracao.id -> true to false
-                binding.radioBips.id -> false to true
-                else -> true to true
+            val escolhido = when (id) {
+                binding.radioNenhum.id -> ModoFeedback.NENHUM
+                binding.radioVibracao.id -> ModoFeedback.VIBRACAO
+                binding.radioBips.id -> ModoFeedback.BIPS
+                else -> ModoFeedback.VIBRACAO_E_BIPS
             }
-            Preferencias.definirVibracao(this, vibracao)
-            Preferencias.definirBips(this, bipsLigados)
+            Preferencias.definirVibracao(this, escolhido.vibra)
+            Preferencias.definirBips(this, escolhido.tocaBip)
         }
     }
 
